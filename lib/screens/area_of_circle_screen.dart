@@ -1,44 +1,80 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class AreaOfCircleScreen extends StatefulWidget {
-  const AreaOfCircleScreen({super.key});
+class AreaCircleScreen extends StatefulWidget {
+  const AreaCircleScreen({super.key});
 
   @override
-  State<AreaOfCircleScreen> createState() => _AreaOfCircleScreenState();
+  State<AreaCircleScreen> createState() => _AreaCircleScreenState();
 }
 
-class _AreaOfCircleScreenState extends State<AreaOfCircleScreen> {
-  final radiusController = TextEditingController();
-  double area = 0;
+class _AreaCircleScreenState extends State<AreaCircleScreen> {
+  final TextEditingController radiusController = TextEditingController(
+    text: "5",
+  );
 
-  void calculateArea() {
-    double r = double.tryParse(radiusController.text) ?? 0;
+  final _formKey = GlobalKey<FormState>();
+
+  double result = 0;
+
+  void calculateArea(double r) {
     setState(() {
-      area = pi * r * r;
+      result = pi * r * r;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Area of Circle')),
+      appBar: AppBar(
+        title: Text("Area of Circle"),
+        backgroundColor: Colors.blue,
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            TextField(
-              controller: radiusController,
-              decoration: const InputDecoration(labelText: 'Radius'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: calculateArea,
-              child: const Text('Calculate'),
-            ),
-            const SizedBox(height: 20),
-            Text('Area: $area', style: const TextStyle(fontSize: 18)),
-          ],
+        padding: const EdgeInsets.all(8.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                keyboardType: TextInputType.number,
+                controller: radiusController,
+                decoration: InputDecoration(
+                  labelText: "Enter radius",
+                  hintText: "e.g. 5",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.green),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter radius";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  child: Text("Calculate Area", style: TextStyle(fontSize: 20)),
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() == true) {
+                      calculateArea(double.parse(radiusController.text));
+                    }
+                  },
+                ),
+              ),
+              SizedBox(height: 8),
+              Text("Area = $result", style: TextStyle(fontSize: 20)),
+            ],
+          ),
         ),
       ),
     );
