@@ -11,6 +11,7 @@ class HiddenNumberBox extends StatefulWidget {
 class _HiddenNumberBoxState extends State<HiddenNumberBox> {
   final Random random = Random();
   int number = 0;
+  int number2 = 0;
   bool isRevealed = false;
 
   void generateNumber() {
@@ -18,6 +19,15 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
     // “Something changed. Rebuild the UI so the new values show on the screen.”
     setState(() {
       number = random.nextInt(100);
+      isRevealed = false;
+    });
+  }
+
+  void generateNumber2() {
+    // chaneg the state of the number
+    // “Something changed. Rebuild the UI so the new values show on the screen.”
+    setState(() {
+      number2 = random.nextInt(100);
       isRevealed = false;
     });
   }
@@ -64,6 +74,8 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
               ],
             ),
 
+            SizedBox(height: 200),
+
             Column(
               children: [
                 GestureDetector(
@@ -78,7 +90,7 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
                       border: Border.all(color: Colors.blue, width: 3),
                     ),
                     child: Text(
-                      isRevealed ? "$number" : "?",
+                      isRevealed ? "$number2" : "?",
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.bold,
@@ -92,9 +104,12 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
               ],
             ),
 
-            // SizedBox(height: 20),
+            SizedBox(height: 20),
             ElevatedButton(
-              onPressed: generateNumber,
+              onPressed: () {
+                generateNumber2();
+                generateNumber();
+              },
               child: const Text("Generate New Number"),
             ),
           ],
