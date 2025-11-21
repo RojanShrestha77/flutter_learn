@@ -91,7 +91,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Palindrome checl'),
+              child: const Text('Palindrome Check'),
             ),
 
             ElevatedButton(
@@ -113,6 +113,7 @@ class DashboardScreen extends StatelessWidget {
               },
               child: const Text('View'),
             ),
+
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -124,6 +125,7 @@ class DashboardScreen extends StatelessWidget {
               },
               child: const Text('Arthimeic Two'),
             ),
+
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
