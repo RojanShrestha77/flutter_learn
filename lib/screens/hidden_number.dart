@@ -10,31 +10,48 @@ class HiddenNumberBox extends StatefulWidget {
 
 class _HiddenNumberBoxState extends State<HiddenNumberBox> {
   final Random random = Random();
+
   int number = 0;
   int number2 = 0;
-  bool isRevealed = false;
+
+  bool revealed1 = false;
+  bool revealed2 = false;
+
+  int? selectedBox;
 
   void generateNumber() {
     // chaneg the state of the number
     // “Something changed. Rebuild the UI so the new values show on the screen.”
     setState(() {
       number = random.nextInt(100);
-      isRevealed = false;
-    });
-  }
-
-  void generateNumber2() {
-    // chaneg the state of the number
-    // “Something changed. Rebuild the UI so the new values show on the screen.”
-    setState(() {
       number2 = random.nextInt(100);
-      isRevealed = false;
+      revealed1 = false;
+      revealed2 = false;
+      selectedBox = null;
     });
   }
 
-  void revealNumber() {
+  // void revealNumber() {
+  //   setState(() {
+  //     isRevealed = true;
+  //   });
+  // }
+
+  void chooseBox(int box) {
     setState(() {
-      isRevealed = true;
+      selectedBox = box;
+
+      if (box == 1) {
+        revealed1 = true;
+      } else {
+        revealed2 = true;
+      }
+
+      if (box == 1) {
+        revealed2 = true;
+      } else {
+        revealed1 = true;
+      }
     });
   }
 
@@ -49,7 +66,9 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
             Column(
               children: [
                 GestureDetector(
-                  onTap: revealNumber,
+                  onTap: () {
+                    if (selectedBox == null) chooseBox(1);
+                  },
                   child: Container(
                     width: 150,
                     height: 150,
@@ -60,11 +79,11 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
                       border: Border.all(color: Colors.blue, width: 3),
                     ),
                     child: Text(
-                      isRevealed ? "$number" : "?",
+                      revealed1 ? "$number" : "?",
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.bold,
-                        color: isRevealed
+                        color: revealed1
                             ? Colors.black
                             : const Color.fromARGB(255, 190, 197, 203),
                       ),
@@ -79,7 +98,9 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
             Column(
               children: [
                 GestureDetector(
-                  onTap: revealNumber,
+                  onTap: () {
+                    if (selectedBox == null) chooseBox(2);
+                  },
                   child: Container(
                     width: 150,
                     height: 150,
@@ -90,11 +111,11 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
                       border: Border.all(color: Colors.blue, width: 3),
                     ),
                     child: Text(
-                      isRevealed ? "$number2" : "?",
+                      revealed2 ? "$number2" : "?",
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.bold,
-                        color: isRevealed
+                        color: revealed2
                             ? Colors.black
                             : const Color.fromARGB(255, 190, 197, 203),
                       ),
@@ -107,7 +128,7 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                generateNumber2();
+                // generateNumber2();
                 generateNumber();
               },
               child: const Text("Generate New Number"),

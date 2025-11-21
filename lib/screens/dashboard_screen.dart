@@ -91,7 +91,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Palindrome Check'),
+              child: const Text('Palindrome checl'),
             ),
 
             ElevatedButton(
