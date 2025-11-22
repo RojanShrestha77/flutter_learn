@@ -196,26 +196,53 @@ class _HiddenNumberBoxState extends State<HiddenNumberBox> {
 
               SizedBox(height: 200),
 
-              Text(
-                "Score",
-                style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-              Text("Correct:$correct", style: TextStyle(fontSize: 28)),
-              Text("Incorrect:$incorrect", style: TextStyle(fontSize: 28)),
+              Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    width: 250,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.blue, width: 3),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Score",
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
 
-              Text("Round:$round / $maxRounds", style: TextStyle(fontSize: 25)),
+                        Text(
+                          "Correct:$correct",
+                          style: TextStyle(fontSize: 28),
+                        ),
+                        Text(
+                          "Incorrect:$incorrect",
+                          style: TextStyle(fontSize: 28),
+                        ),
 
-              Text(
-                gameOverMessage,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber,
-                ),
+                        Text(
+                          "Round:$round / $maxRounds",
+                          style: TextStyle(fontSize: 25),
+                        ),
+
+                        Text(
+                          gameOverMessage,
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.amber,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
 
               SizedBox(height: 20),
